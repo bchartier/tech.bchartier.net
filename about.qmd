@@ -1,0 +1,6 @@
+---
+title: "À propos"
+---
+
+La documentation technique de bchartier.net a été créée à l'aide de Quarto.
+Pour en savoir plus visitez <https://quarto.org/>.

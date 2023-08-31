@@ -1,0 +1,64 @@
+---
+title: Édition - bases
+subtitle: Bases de l'édition des géométries dans QGIS
+from: markdown+emoji
+---
+
+# Créer un nouvel objet en le dessinant
+## Activer le mode de saisie d'une nouvelle entité
+Pour créer des objets vectoriels, vous devez&nbsp;:
+
+* Sélectionner la ou les couches à éditer dans le panneau "Couches"&nbsp;;
+* Entrer en mode édition (via la barre d'outils de numérisation ou le menu "Couche - Basculer en mode édition").<br>
+![edition-01.png](assets/edition-01.png)<br>
+Le pictogramme suivant apparaît alors à côté de la ou les couches concernées&nbsp;:<br>
+![edition-02.png](assets/edition-02.png)<br>
+* Activer l'outil de saisie d'une nouvelle entité&nbsp;:<br>
+![edition-03.png](assets/edition-03.png)<br>
+Une fois cet outil activé vous pouvez dessiner la géométrie sur la carte.
+
+## Dessiner la géométrie
+L'ajout d'un nouveau point à la géométrie en cours de création se fait par simple clic sur la carte.
+
+Une fois le dernier point de la géométrie placé, vous pouvez arrêter la saisie de la géométrie en faisant un clic-droit sur la carte.
+
+## Saisie des attributs de l'objet
+Lorsque vous arrêter la saisie de la géométrie, un formulaire apparaît. Il vous donne la possibilité de saisir les différents attributs de l'objet. Lorsque vous validez le formulaire l'objet et ses attributs sont saisis et peuvent être utilisés par QGIS. Néanmoins ils ne sont pas encore enregistrés dans la source de données de votre couche (fichiers ou base de données).
+
+## Enregistrer les objets saisis
+Pour enregistrer les objets nouvellement saisis (ou modifiés) vous avez deux possibilités&nbsp;:
+
+* Cliquer sur le bouton de sauvegarde de la barre d'outils "Numérisation"&nbsp;;<br>
+![edition-04.png](assets//edition-04.png)<br>
+* Sortir du mode d'édition et accepter l'enregistrement des modification lorsque QGIS vous le propose.
+
+# Modifier la géométrie d'un objet existant
+Pour modifier des objets vectoriels, vous devez&nbsp;:
+
+* Sélectionner la ou les couches à éditer dans le panneau "Couches"&nbsp;;
+* Entrer en mode édition.<br>
+![edition-01.png](assets/edition-01.png)<br>
+Le pictogramme suivant apparaît alors à côté de la ou les couches concernées&nbsp;:<br>
+![edition-02.png](assets/edition-02.png)
+
+## Déplacer un objet en entier
+Pour déplacer un objet dans son ensemble, activez le bouton de déplacement de l'objet&nbsp;:<br>
+![edition-05.png](assets/edition-05.png)
+
+## Déplacer, ajouter, supprimer des vertex
+Pour déplacer, ajouter et supprimer des vertex d'une géométrie, activez l'outil intitulé "Outil de sommet"&nbsp;:<br>
+![edition-06.png](assets/edition-06.png)
+
+:bulb: En faisant un clic-droit sur une entité de la couche en cours d'édition vous affichez un tableau de la liste des vertex avec leurs coordonnées. Vous pouvez y éditer les coordonnées directement.
+
+Pour ajouter un vertex&nbqp;: cliquez sur le centre d'un segment.
+
+Pour déplacer un vertex&nbsp;: cliquez sur celui-ci une fois, puis cliquez sur l'endroit où vous voulez le positionner.
+
+Pour supprimer un vertex&nbsp;: sélectionnez-le et appuyer sur la touche Suppr de votre clavier.
+
+Pour sélectionner plusieurs vertex&nbsp;:
+
+* vous pouvez sélectionner de nouveaux vertex en maintenant enfoncée la touche Ctrl de votre clavier&nbsp;;
+* vous pouvez sélectionner plusieurs vertex en maintenant le bouton gauche de la souris enfoncée puis en faisant glisser la souris. Cela sélectionnera les vertex dans le rectangle compris entre le début et la fin du mouvement de la sourisénbsp;;
+* vous pouvez sélectionner les vertex situé dans un polygone que vous dessinez à la souris. Pour débuter le dessin du polygone, faites un clic tout en appuyant sur la touche Alt du clavier. Faites un clic pour ajouter un point au polygone. Faites un clic-droit pour arrêter la saisie du polygone.

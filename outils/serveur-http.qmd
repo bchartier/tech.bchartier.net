@@ -1,0 +1,56 @@
+---
+title: "Serveur HTTP"
+subtitle: "Création d'un serveur HTTP - différentes méthodes"
+---
+
+# Avec Python
+
+Le code suivant crée un serveur HTTP qui serve le contenu du répertoire courant.
+
+``` {.sh}
+python3 -m http.server
+```
+
+
+# Avec Docker sans Dockerfile
+
+Pour démarrer un serveur Apache avec Docker sans Dockerfile :
+``` {.sh}
+docker run -dit --name my-apache-app -p 8080:80 -v "$PWD":/usr/local/apache2/htdocs/ httpd:2.4
+```
+
+cf. [https://hub.docker.com/_/httpd/](https://hub.docker.com/_/httpd/)
+
+
+# Avec Docker avec un dockerfile
+
+Exemple de dockerfile :
+``` {.txt}
+FROM httpd:2.4
+COPY ./public-html/ /usr/local/apache2/htdocs/
+```
+
+Commandes à exécuter :
+``` {.sh}
+docker build -t my-apache2 .
+docker run -dit --name my-running-app -p 8080:80 my-apache2
+```
+
+cf. [https://hub.docker.com/_/httpd/](https://hub.docker.com/_/httpd/)
+
+
+# Serveur Apache intégré au Mac
+
+Pour démarrer le serveur HTTP par défaut sur un Mac :
+
+``` {.sh}
+sudo apachectl start
+```
+
+Pour l'arrêter :
+``` {.sh}
+sudo apachectl stop
+```
+
+Configuration standard : `/etc/apache2/httpd.conf`
+Configurations additionnelles : `/private/etc/apache2/other`

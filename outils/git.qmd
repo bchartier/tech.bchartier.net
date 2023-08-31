@@ -1,0 +1,80 @@
+---
+title: "Git"
+subtitle: "Aide-mémoire pour Git"
+---
+
+# Nom et adresse mél
+
+Nom d'utilisateur :
+[Setting your username in Git](https://docs.github.com/en/get-started/getting-started-with-git/setting-your-username-in-git)
+
+Adresse mél :
+[Setting your commit email address](https://docs.github.com/en/github/setting-up-and-managing-your-github-user-account/managing-email-preferences/setting-your-commit-email-address)
+
+[Meaning of the GitHub message: push declined due to email privacy restrictions](https://stackoverflow.com/questions/43378060/meaning-of-the-github-message-push-declined-due-to-email-privacy-restrictions)
+
+
+# Autorisations pour les opérations liées à Github
+
+[Creating a personal access token](https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token)
+
+[Caching your GitHub credentials in Git](https://docs.github.com/en/get-started/getting-started-with-git/caching-your-github-credentials-in-git#git-credential-manager)
+
+# Remotes
+Creation d’un remote vers le projet d’origine du fork :
+
+``` {.sh}
+git remote add upstream
+```
+
+Voir [https://github.com/geobretagne/mviewer.git](https://github.com/geobretagne/mviewer.git)
+
+
+# Lister des fichiers
+
+Lister tous les fichiers suivis par Git :
+``` {.sh}
+git ls-tree -r <nom-de-la-branche> --name-only
+```
+
+Lister les fichiers ignorés :
+``` {.sh}
+git status --ignored
+```
+
+
+# Fichiers ignorés
+Fichiers à exclure sans apparaître dans le .gitignore :
+``` {.sh}
+.git/info/exclude
+```
+
+
+# Récupération d'un pullrequest pour test en local
+``` {.sh}
+git fetch origin pull/72/head:<nom-du-pullrequest>
+```
+
+voir [https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/checking-out-pull-requests-locally](https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/reviewing-changes-in-pull-requests/checking-out-pull-requests-locally)
+
+
+# Annulation de trucs
+Voir [https://stackoverflow.com/questions/4965639/rollback-to-last-git-commit](https://stackoverflow.com/questions/4965639/rollback-to-last-git-commit)
+
+
+# Subtrees
+
+Explication et tuto pour la gestion des subtrees :
+[Comprendre et maîtriser les subtrees Git](https://delicious-insights.com/fr/articles/git-subtrees/)
+
+Utilitaire pour faciliter le travail :
+[git-subrepo](https://github.com/ingydotnet/git-subrepo#readme)
+
+Aide pour l'installation sous windows :
+[git-subrepo - Install on windows instructions](https://github.com/ingydotnet/git-subrepo/issues/271)
+
+Pousser sur Github d'un subrepo :
+``` {.sh}
+git subrepo push qgis-plugin-project/qgis-utils-sub-project
+```
+

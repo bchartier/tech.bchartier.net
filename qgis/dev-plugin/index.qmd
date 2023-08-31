@@ -1,0 +1,33 @@
+---
+title: "Développement de plugins"
+subtitle: "Ressources documentaires pour la création de plugin pour QGIS"
+---
+
+## Documentation et didacticiels
+
+- GISMentors : [Developing QGIS Plugins](https://training.gismentors.eu/qgis-plugins/index.html)
+- PyQGIS Cookbook : [Writting a plugin](https://docs.qgis.org/3.22/en/docs/pyqgis_developer_cookbook/plugins/plugins.html#writing-a-plugin)
+- Create QGIS Plugin [Build your own QGIS plugin](https://create-qgis-plugin.readthedocs.io/en/latest/index.html)
+- QGIS Tutorials and Tips : [Building a Python Plugin (QGIS3)](https://www.qgistutorials.com/en/docs/3/building_a_python_plugin.html)
+- GIS-OPS : [QGIS 3 Plugin Tutorial – Qt Designer Explained](https://gis-ops.com/qgis-3-plugin-tutorial-qt-designer-explained/)
+- Michal Zimmermann :
+  * [Plugin Development: Getting Started](https://www.zimmi.cz/posts/2017/qgis-plugin-development-getting-started/)
+  * [QGIS Plugin Development: Testing Your Code](https://www.zimmi.cz/posts/2017/qgis-plugin-development-testing-your-code/)
+
+## Exemples de plugins industrialisés
+
+- [https://github.com/planetfederal/qgis-geoserver-plugin](https://github.com/planetfederal/qgis-geoserver-plugin)
+
+
+## Outils et modèles de plugins
+
+- [Qgis-Plugin-Builder](https://github.com/g-sherman/Qgis-Plugin-Builder)
+- [QGIS Plugin templater](https://oslandia.gitlab.io/qgis/template-qgis-plugin/)
+
+
+## Publier son plugin
+
+- [How to add your plugin to this repository](https://plugins.qgis.org/publish/)
+
+## Installer un module Python sous QGIS
+- [Installation via OSGeo4W Shell sous Windows](https://gis.stackexchange.com/questions/80272/distributing-qgis-plugin-which-depends-on-certain-python-packages)

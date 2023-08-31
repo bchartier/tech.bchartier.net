@@ -1,0 +1,15 @@
+---
+title: "bchartier.net"
+subtitle: "Documentation technique"
+---
+
+Ce site regroupe mes notes techniques concernant les outils que j'utilise et sur lesquels je peux intervenir pour mes clients.
+
+**Son contenu n'est pas destiné à être pérenne.**<br>
+Vous pouvez faire pointer vos propres documents sur des pages de cette documentation... en ayant conscience de son caractère éphémère.
+
+**La licence [Licence CC BY 4.0](https://creativecommons.org/licenses/by/4.0/deed.fr) s'applique au contenu de ce site**, sauf mention contraire explicite sur les pages concernées.
+
+Bien entendu, cette licence ne s'applique qu'aux contenus dont je suis l'auteur. Pour les contenus produits par des tiers et que je réutilise veuillez vous référer aux conditions d'accès et de réutilisation définies par leurs auteurs. Je m'efforce de signaler les sources de tels contenus.
+
+N'hésitez pas à me signaler les contenus que j'utilise de manière illégitime.

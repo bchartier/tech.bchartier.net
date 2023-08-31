@@ -1,0 +1,8 @@
+---
+title: "Open data"
+subtitle: "Open data - ressources bibliographiques"
+---
+
+## Formations
+Webinaire conçu et présenté par le Cerema et OpenDataFrance, avec le soutien du CRIGE PACA&nbsp;:
+[Formation : La data dans les territoires](https://opendatafrance.gitbook.io/formation/-M2EJEgoe1Mr-CLVfuKR/)

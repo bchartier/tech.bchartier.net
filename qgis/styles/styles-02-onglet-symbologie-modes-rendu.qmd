@@ -1,0 +1,50 @@
+---
+title: Styles - Modes de rendu
+subtitle: Présentation et usage des différents modes de rendu de QGIS
+from: markdown+emoji
+---
+
+
+L'onglet "Symbologie" permet de définir la manière dont les géométries des couches vecteur sont représenter graphiquement dans la carte 2D de QGIS. La représentation graphique des étiquettes et la représentation dans les cartes 3D sont configurées dans d'autres onglets.
+
+
+# Description des modes de rendu
+
+L'onglet "Symbologie" permet de configurer le rendu des géométrie selon plusieurs modes&nbsp;:
+![panneau-syle-couche-02.png](assets/panneau-syle-couche-02.png)
+
+* Rendus appliquables à tous les types de géométries&nbsp;:
+  * **Pas de symboles**&nbsp;: Aucun rendu des géométries n'est réalisé sur la carte 2D de QGIS. Cela n'exclut pas la possibilité de représenter graphiquement les étiquettes.
+  * **Symbole unique**&nbsp;: Les mêmes règles de rendu sont appliquées à l'ensemble des objets de la couche sans distinction.
+  * **Catégorisé**&nbsp;: Application de règles graphiques différentes pour chaque valeur d'un attribut ou d'une expression. Peut être appliqué à des attributs portant des valeurs numériques ou non. S'applique naturellement à des attributs dont le nombre de valeurs différentes est limité.
+  * **Gradué**&nbsp;: Application de règles graphiques différentes pour chaque catégorie d'une classification basée sur les valeurs d'un attribut ou d'une expression. S'applique naturellement à des attributs portant des valeurs quantitatives.
+  * **Ensemble de règles**&nbsp;: Application de règles personnalisées plus souples que "Catégorisé" et "Gradué". Permet d'imbriquer des règles.
+
+* Spécifiques aux points&nbsp;:
+  * **Déplacement de points**&nbsp;: Déplacement du symbole du point pour éviter les superpositions.
+  * **Groupes de points**&nbsp;: Regroupement des points superposés et application d'un symbole spécifique aux groupes.
+  * **Carte de chaleur**&nbsp;: Représentation de la densité de points sous la forme d'un raster avec application d'un dégradé de couleurs.
+
+* Spécifiques aux polygones&nbsp;:
+  * **Polygones inversés**&nbsp;: Application de règles de rendu sur la partie externe des polygones. Ce mode reprend les différents mode de rendu&nbsp;: symbole unique, catégorisé, gradué, ensemble de règles...
+  * **2.5 D**&nbsp;: Application d'un rendu sous forme de boîte à chaussures. Potentiellement très lent et pas nécessairement très joli.
+
+* Spécifiques aux polygones et aux lignes&nbsp;:
+  * **Entités fusionnées**&nbsp;: Fusion des objets adjacents avant application d'un rendu à ces entités fusionnées.
+
+# Choix du mode de rendu en fonction du besoin
+
+| Besoin | Modes de rendu à utiliser |
+| -- | -- |
+| **Ne pas afficher la géométrie**<br>Afficher une étiquette seulement | **Pas de symboles** |
+| **Afficher un symbole constant** pour tous les objets de la couche | **Symbole unique** |
+| **Afficher un symbole constant pour une partie des objets**<br> et masquer les autres | **Symbole unique** avec un filtre<br> **Catégorisé**<br> **Ensemble de règles** |
+| **Distinguer graphiquement** les objets en fonction d'un attribut<br>autorisant quelques **valeurs discrètes**<br>(des noms, types ou catégories par exemple) | **Catégorisé** |
+| **Distinguer graphiquement** les objets en fonction d'un attribut<br>autorisant des **valeurs variant de manière continue**<br>(des quantités par exemple)<br>Par exemple pour appliquer un dégradé de couleurs | **Gradué** |
+| **Distinguer graphiquement** les objets en fonction de critères complexes | **Ensemble de règles** |
+| **Représenter différemment les objets en fonction de l'échelle** | **Ensemble de règles** |
+| **Combiner deux modes de rendu**<br>Par exemple créer une classification puis pour une des catégories appliquer un dégradé de couleurs | **Ensemble de règles** |
+| **Rendre visibles tous les points** même lorsqu'ils se superposent<br>lorsque la densité de points est modérée | **Déplacement de points**<br>**Symbole unique** avec transparence |
+| **Représenter la densité de points** lorsque la densité de points est modérée | **Symbole unique** avec transparence<br>**Groupes de points** |
+| **Représenter la densité de points** lorsque les points sont très nombreux | **Symbole unique** avec transparence<br>**Carte de chaleur** |
+| **Masquer les séparations entre objets surfaciques** | **Entités fusionnées** |

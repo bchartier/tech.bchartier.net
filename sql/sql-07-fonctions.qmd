@@ -1,0 +1,31 @@
+Il est possible d'utiliser des fonctions dans les expressions SQL pour réaliser des recherches plus élaborées. En particulier :
+* dans la clause `SELECT`
+* dans la clause `WHERE`
+
+
+# Concaténation de chaînes de caractères
+
+``` {.sql}
+SELECT colonne1 || colonne 2
+FROM schema.table`
+```
+
+
+# Modification des valeurs des colonnes
+
+``` {.sql}
+SELECT LOWER(colonne1)
+FROM schema.table
+```
+
+Fonctions communes sur les chaînes de caractères : `UPPER`, `LOWER`, `CHAR_LENGTH`, `TRIM`, `SUBSTRING`, `LEFT`, `RIGHT`, `REPLACE`.
+
+
+# Opérations mathématiques sur des nombres
+
+``` {.sql}
+SELECT colonne1 + colonne 2
+FROM schema.table
+```
+
+Fonctions communes sur les nombres : `+`, `-`, `/`, `*`, `FLOOR`, `CEIL`, `ROUND`.

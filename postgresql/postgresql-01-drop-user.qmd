@@ -1,0 +1,209 @@
+# Suppression d'un utilisateur
+
+## Causes empêchant la suppression d'un utilisateur
+
+### L'utilisateur dispose de droits sur des objets
+
+* Droits sur des objets (base de données, schéma, table, séquence, vue, colonne...)
+  * propriétaire
+  * est cité dans la définition des privilèges
+    * comme grantee (bénéficiaire des privilèges)
+    * comme grantor (octroyeur des privilèges) - normalement le grantor est le propriétaire de l'objet.
+  * est mentionné dans la définition des privilèges par défaut (base de données et schéma uniquement)
+
+Aussi&nbsp;:
+
+* droits sur une séquence
+* droits sur une colonne
+* etc.
+
+### Exemples
+
+Tentative de suppression d'un utilisateur propriétaire d'un schéma&nbsp;:
+
+``` {.txt}
+ERROR:  role "test" cannot be dropped because some objects depend on it
+DETAIL:  owner of schema test_suppression
+```
+
+Tentative de suppression d'un utilisateur disposant de privilèges sur un schéma&nbsp;:
+
+``` {.txt}
+ERROR:  role "test" cannot be dropped because some objects depend on it
+DETAIL:  privileges for schema test_suppression
+```
+
+Tentative de suppression d'un utilisateur propriétaire d'une table&nbsp;:
+
+``` {.txt}
+ERROR:  role "test" cannot be dropped because some objects depend on it
+DETAIL:  owner of table test_suppression.table_a_supprimer
+```
+
+Tentative de suppression d'un utilisateur propriétaire d'une vue&nbsp;:
+
+``` {.txt}
+ERROR:  role "test" cannot be dropped because some objects depend on it
+DETAIL:  owner of view test_suppression.vue_a_supprimer
+```
+
+Tentative de suppression d'un utilisateur disposant de privilèges sur une table&nbsp;:
+
+``` {.txt}
+ERROR:  role "test" cannot be dropped because some objects depend on it
+DETAIL:  privileges for table test_suppression.table_a_supprimer
+```
+
+Tentative de suppression d'un utilisateur impliquant plusieurs empêchements&nbsp;:
+
+``` {.txt}
+ERROR:  role "test" cannot be dropped because some objects depend on it
+DETAIL:  owner of schema test_suppression
+owner of table test_suppression.table_a_supprimer
+owner of table test_suppression.table_a_supprimer_2
+owner of table test_suppression.table_a_supprimer_3
+owner of view test_suppression.vue_a_supprimer
+```
+
+## Identifier les objets problématiques
+
+### Identifier les tables et vues sur lesquelles l'utilisateur bénéficie de privilèges
+
+Script pour identifier les tables et vues pour lesquels un utilisateur particulier dispose de privilèges.
+
+Ce script ne vérifie pas si l'utilisateur est le propriétaire de l'objet.
+
+``` {.sql}
+-- List tables and views on which a specific user has privileges
+WITH myconstants (username) as (
+   values ('old_user')
+)
+
+SELECT table_privileges.table_catalog AS database, table_privileges.table_schema AS schema, table_privileges.table_name AS table
+FROM (
+  SELECT distinct(table_catalog, table_schema, table_name), table_catalog, table_schema, table_name
+  FROM information_schema.table_privileges,
+  myconstants
+  WHERE grantee = username
+  ) AS table_privileges
+;
+```
+
+[à exécuter dans chacune des bases de données à tester]
+
+### Identifier les objets appartenant à un utilisateur
+
+Script pour identifier les objets dont un utilisateur donné est le propriétaire&nbsp;:
+
+``` {.sql}
+-- List objects owned by a specific user
+
+-- Set the user name here
+WITH myconstants (username) as (
+   values ('test')
+)
+
+SELECT
+  nsp.nspname AS schema,
+  cls.relname AS object_name,
+  rol.rolname AS owner,
+  CASE cls.relkind
+    WHEN 'r' THEN 'TABLE'
+    WHEN 'm' THEN 'MATERIALIZED_VIEW'
+    WHEN 'i' THEN 'INDEX'
+    WHEN 'S' THEN 'SEQUENCE'
+    WHEN 'v' THEN 'VIEW'
+    WHEN 'c' THEN 'TYPE'
+    ELSE cls.relkind::text
+  END AS object_type
+FROM pg_class cls,
+  pg_roles rol,
+  pg_namespace nsp,
+  myconstants
+WHERE nsp.nspname NOT IN ('information_schema', 'pg_catalog')
+  AND nsp.nspname NOT LIKE 'pg_toast%'
+  AND rol.oid = cls.relowner
+  AND nsp.oid = cls.relnamespace
+  AND rol.rolname = username
+ORDER BY nsp.nspname ASC, cls.relname ASC;
+```
+
+[à exécuter dans chacune des bases de données à tester]
+
+### Identifier les schémas associés à un utilisateur
+
+Script pour identifier les schémas pour lesquels un utilisateur particulier est associé&nbsp;:
+
+* soit comme propriétaire du schéma (owner)
+* soit comme bénéficiaire de privilèges (grantee)
+* soit comme octroyeur de privilèges (grantor)
+
+``` {.sql}
+-- List schemas with specific owner or grantee
+WITH myconstants (username) as (
+   values ('old_user')
+)
+
+SELECT nsp_info.*
+FROM
+  LATERAL (
+    SELECT
+      n.nspname AS name,
+      pg_catalog.pg_get_userbyid(n.nspowner) AS owner,
+      pg_catalog.array_to_string(n.nspacl, E'\n') AS privileges,
+      pg_catalog.obj_description(n.oid, 'pg_namespace') AS description
+    FROM pg_catalog.pg_namespace AS n
+  ) AS nsp_info,
+  myconstants
+WHERE name !~ '^pg_' AND name <> 'information_schema'
+  AND (owner LIKE '%' || username || '%' OR privileges LIKE '%' || username || '%')
+ORDER BY nsp_info.name ASC;
+```
+
+[à exécuter dans chacune des bases de données à tester]
+
+## Comment supprimer un utilisateur ayant des privilèges
+
+À exécuter dans cet ordre
+
+1. **Réassigner les objets dont l'utilisateur est propriétaire** à un autre utilisateur
+
+   ``` {.sql}
+   REASSIGN OWNED BY old_user TO other_user;
+   ```
+2. Supprimer ses **privilèges sur les tables et les vues** (doit être réalisé schéma par schéma). Même si l'instruction mentionne ALL TABLES, elle s'applique à la fois aux tables et aux vues ! 
+
+   ``` {.sql}
+   REVOKE ALL PRIVILEGES ON ALL TABLES IN SCHEMA this_schema FROM old_user;
+   ```
+3. Supprimer les mentions de l'utilisateur dans les **privilèges par défaut des schémas** (doit être réalisé schéma par schéma)
+
+   ``` {.sql}
+   ALTER DEFAULT PRIVILEGES IN SCHEMA this_schema REVOKE ALL ON TABLES FROM old_user;
+   ```
+4. Supprimer ses **privilèges sur les schémas** (doit être réalisé schéma par schéma)
+
+   ``` {.sql}
+   REVOKE ALL PRIVILEGES ON SCHEMA this_schema FROM old_user;
+   ```
+5. Supprimer les mentions de l'utilisateur dans les **privilèges par défaut des bases de données**
+
+   ``` {.sql}
+   ALTER DEFAULT PRIVILEGES REVOKE ALL ON TABLES FROM old_user;
+   ```
+6. Supprimer ses **privilèges sur les bases de données**
+
+   ``` {.sql}
+   REVOKE ALL ON DATABASE this_database FROM old_user;
+   ```
+7. Supprimer l'utilisateur
+
+   ``` {.sql}
+   DROP USER old_user;
+   ```
+
+## Comment éviter ou limiter ce casse-tête
+
+1. S'assurer que les propriétaires et aux bénéficiaires des privilèges sur les schémas, tables, vues, etc. sont des groupes et non des utilisateurs individuels.
+2. Limiter le nombre de schémas quand c'est possible pour éviter de devoir lancer des instructions schéma par schéma.
+3. S'assurer que lorsque des utilisateurs individuels sont détenteurs de droits particuliers ce soit documenté afin de les identifier rapidement. Il est toujours possible d'utiliser des groupes à la place des utilisateurs individuels.

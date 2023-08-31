@@ -1,0 +1,21 @@
+Le mot-clef `AS` permet de définir des alias (un nom alternatif au nom d'une colonne ou d'une table).
+Cet alias ne persiste pas en base de données. Il n'est valide qu'au sein de la requête qui le définit.
+
+À noter que le mot-clef `AS` est optionnel. Néanmoins, il est recommandé de l'utiliser pour améliorer la lisibilité des requêtes.
+
+# Alias de colonnes
+
+``` {.sql}
+SELECT schema1.table1.colonne1 AS col1
+FROM schema1.table1
+WHERE col1 = "Ardennes";
+```
+
+
+# Alias de tables
+
+``` {.sql}
+SELECT tab1.*, tab2.colonne2
+FROM schema1.table1 AS tab1,
+	 schema2.table2 AS tab2;
+```

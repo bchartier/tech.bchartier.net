@@ -1,0 +1,17 @@
+---
+title: "Sobriété"
+subtitle: "Sobriété numérique - Numérique responsable"
+---
+
+## Mission interministérielle numérique écoresponsable
+* [Épisode #9 : Les implications de la loi REEN pour les collectivités territoriales](https://ecoresponsable.numerique.gouv.fr/publications/videos-vers-un-numerique-ecoresponsable/episode-9-loi-reen-et-collectivites-territoriales/)
+* [Bonnes pratiques numérique responsable pour les organisations - Version bêta](https://ecoresponsable.numerique.gouv.fr/docs/2022/guide-de-bonnes-pratiques-numerique-responsable-version-beta.pdf)
+
+## OpenDataFrance
+* [Référentiel Greendata - Pour un impact environnemental maîtrisé](https://opendatafrance.gitbook.io/greendata-pour-un-impact-maitrise-des-donnees/greendata/1.1-contexte)
+
+## SmartCity Mag
+* [Déclic et Adico préparent une plateforme d’aide à la sobriété numérique](http://www.smartcitymag.fr/article/1115/declic-et-adico-preparent-une-plateforme-d-aide-a-la-sobri%C3%A9t%C3%A9-numerique)
+
+## Eyrolles
+* [Ecoconception web : les 115 bonnes pratiques](https://www.eyrolles.com/Informatique/Livre/ecoconception-web-les-115-bonnes-pratiques-9782416006272/)

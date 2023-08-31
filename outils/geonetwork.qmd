@@ -1,0 +1,10 @@
+---
+title: "GeoNetwork"
+subtitle: "Notes sur l'usage de GeoNetwork"
+---
+
+# GeoNetwork
+
+## Automatisation de création de fiches
+
+[Exemple de script de conversion d'un fichier CSV en fiches de métadonnées](https://github.com/eea/geonetwork-eea/blob/eea-4.2.0/eea/csv2geonetwork/run.sh)

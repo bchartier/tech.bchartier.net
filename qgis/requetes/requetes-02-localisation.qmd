@@ -1,0 +1,206 @@
+---
+title: Requêtes - Par localisation
+subtitle: Filtres et requêtes géographiques dans QGIS
+from: markdown+emoji
+---
+
+QGIS propose plusieurs fonctions permettant d'identifier des objets en fonction de leur localisation&nbsp;:
+
+* Outil de sélection "Sélection des entités à l'aide d'une expression..."
+* Traitements :
+  * "Sélection par localisation" (présent également dans la barre d'outils de sélection et dans le menu "Vecteur - Outils de recherche") et "Extraire par localisation"
+  * "Sélectionner à l'aide d'une expression..." et  "Extraire par expression"
+  * "Sélection dans un rayon"  et "Extraire dans un rayon"
+
+:bulb: Différence entre traitements d'extraction et de sélection :
+
+* Sélection : le traitement modifie la sélection des objets ;
+* Extraction : le traitement crée une nouvelle couche avec les entités vérifiant la requête (et optionnellement crée une nouvelle couche avec les autres entités) sans altérer la sélection.
+
+# Sélection par localisation
+Permet de sélectionner les entités d’une couche vérifiant une condition de localisation par rapport aux entités d’une autre couche.
+Dans l'exemple ci-dessous, les bâtiments intersectant des routes sont recherchés.
+![filtres-requetes-15.png](../styles/assets/filtres-requetes-15.png)
+
+## Conditions de localisation
+Signification des conditions de localisation proposées par QGIS&nbsp;:
+
+* **Intersecte** : A intersecte B si A et B ont au moins un point en commun (y compris sur leur périmètre) - voir [ST_Intersects](https://www.postgis.net/docs/ST_Intersects.html)
+* **Touche** : A touche B si A et B s'intersectent sans que leurs intérieurs s'intersectent - voir [ST_Touches](https://www.postgis.net/docs/ST_Touches.html)
+* **Contient** : A contient B si et seulement si aucun point de B est situé à l'extérieur de A et qu'au moins un point d el'intérieur de B est à l'intérieur de A - voir [ST_Contains](https://www.postgis.net/docs/ST_Contains.html)
+* **Chevauche** : A chevauche B si A et B ont le même nombre de dimensions et si leur intersection a le même nombre de dimensions et si chacune des géométries possède au moins un point non partagé avec l'autre - voir [ST_Overlaps](https://www.postgis.net/docs/ST_Overlaps.html)
+* **Est disjoint** : A et B sont disjoints s'ils n'ont aucun point en commun - voir [ST_Disjoint](https://www.postgis.net/docs/ST_Disjoint.html)
+* **Est à l'intérieur** : A est à l'intérieur de B si tous les points de A sont complètement à l'intérieur de B - voir [ST_Within](https://www.postgis.net/docs/ST_Within.html)
+* **Égal** : A est égal à B si tout point de A est commun avec B et si tout point de B est commun avec A - voir [ST_Equals](https://www.postgis.net/docs/ST_Equals.html)
+* **Croise** : A et B se croise si une partie seulement des points intérieurs de A et B sont partagés et le nombre de dimensions de l’intersection est plus petit que le nombre de dimensions d’au moins l’une des 2 géométries - voir [ST_Crosses](https://www.postgis.net/docs/ST_Crosses.html) 
+
+:warning: L'interprétation de **croise** n'est pas intuitive. Il est préférable de ne pas l'utiliser.
+
+:bulb: La condition de localisation la plus courante et la plus simple à utiliser est **intersecte**.
+
+:bulb: **Intersecte** et **Est disjoint** sont complémentaires l'un de l'autre. Si l'un est vrai l'autre est faux et inversement.
+
+Pour en savoir plus :
+
+* [Documentation de référence de PostGIS](https://postgis.net/docs/reference.html)
+* [Page de wikipedia consacrée à ces relations de localisation](https://en.wikipedia.org/wiki/DE-9IM#Spatial_predicates)
+
+## Limites
+Cet outil de sélection ne permet pas&nbsp;:
+
+* de réaliser une négation d'une condition&nbsp;;
+* d’utiliser une fonction de distance&nbsp;;
+* de combiner un filtre sur la valeur d’un champ et une condition de localisation.
+
+Solution de contournement pour réaliser une négation d'une condition&nbsp;:
+
+* Dans un premier temps, sélectionner l'ensemble des entités de la couche&nbsp;;
+* Exécuter ensuite la recherche en demandant à l'outil de sélection de retirer de la sélection les entités qui vérifient les conditions de la recherche.
+
+Solutions de contournement pour combiner des conditions alphanumériques et géographiques&nbsp;:
+
+* Enchaîner l'usage de cet outil avec d'autres outils de sélection ou d'autres traitements
+* Utiliser d’autres outils :
+  * couche virtuelle
+  * sélection/recherche par expression
+
+Solutions de contournement pour réaliser des recherches basées sur des distances&nbsp;:
+
+* Utiliser les traitements "Sélection dans un rayon" et "Extraire dans un rayon"
+* Utiliser d’autres outils :
+  * couche virtuelle
+  * sélection/recherche par expression **en utilisant des générateurs de géométries**
+  * utilisation de couches de données temporaire créées avec des zones tampon
+
+
+# Sélection par distance
+Les outils les plus simples pour identifier des objets à moins d'une certain distance d'autres objets sont les traitements "Sélection dans un rayon" et "Extraire dans un rayon"&nbsp;:
+![filtres-requetes-18.png](assets/filtres-requetes-18.png)
+
+Le fonctionnement de ces outils est similaire aux outils de recherche par localisation aux différences suivantes près&nbsp;:
+
+* on ne spécifie pas de prédicat géographique&nbsp;;
+* on indique une distance.
+
+Fenêtre de configuration de "Sélection dns un rayon..."&nbsp;:
+![filtres-requetes-19.png](assets/filtres-requetes-19.png)
+
+:warning: La distance à fournir dans ces outils doit être exprimée dans l'unité de la carte. Pour une carte en WGS84, il s'agit de degrés.
+
+:warning: Les performances de cet outil sont d'autant moins élevées que le nombre d'entités et la distance sont grands.
+
+:bulb: Le calcul de la distance entre deux géométries est toujours la plus courte distance qu'il est possible de trouver entre un point d'une géométrie et un point de l'autre géométrie. Pour des polygones par exemple, il ne s'agit pas de la distance entre les barycentres des géométries. Exemples&nbsp;:
+
+* La distance entre un point situé sur la limite d'un polygone et ce polygone vaut 0&nbsp;;
+* La distance entre un point situé dans un trou d'un polygone et ce polygone a une valeur strictement supérieure à 0.
+
+# Comparer des objets de 2 couches différentes
+## Trouver les bâtiments qui intersectent au moins une route
+
+Mode opératoire&nbsp;:
+
+* Ouvrez le traitement "Sélection par localisation"&nbsp;;
+* Paramètre "Sélectionner les entités depuis"&nbsp;: sélectionnez la couche des bâtiments&nbsp;;
+* Paramètre "Où les entités"&nbsp;: sélectionnez "intersecte"&nbsp;;
+* Paramètre "En comparant les entités de "&nbsp;: sélectionnez la couche des routes
+* Paramètre "Modifier la séleciton actuelle en"&nbsp;: sélectionnez "Créer une nouvelle sélection&nbsp;;
+* Cliquez sur le bouton "Exécuter".
+
+Le traitement peut prendre du temps (quelques secondes avec plusieurs milliers d'objets dans les deux couches). Une fois le traitement terminé, la sélection est composée uniquement des bâtiments intersectant au moins une route.
+
+## Trouver les bâtiments localisés à moins d'une certaine distance d'une voie ferrée
+
+:warning: En travaillant avec le système de coordonnées WGS84, la mesure de distance utilisée par le traitement "Sélection dans un rayon" est exprimée en degrés. Pour utiliser des mètres, il faut changer le système de coordonnées de la carte.
+
+Mode opératoire&nbsp;:
+
+* **Ouvrez le traitement "Sélection dans un rayon"**&nbsp;;
+* Paramètre "Sélectionner les entités depuis"&nbsp;: sélectionnez la couche  des bâtiments&nbsp;;
+* Paramètre "En comparant les entités de "&nbsp;: sélectionnez la couche des voies ferrées&nbsp;;
+* Paramètre "Où les entités se trouvent dans un rayon de"&nbsp;: saisissez la distance souhaitée (:waring: attention à l'unité utilisée)&nbsp;;
+* Paramètre "Modifier la sélection actuelle en"&nbsp;: sélectionnez "Créer une nouvelle sélection&nbsp;;
+* Cliquez sur le bouton "Exécuter".
+
+
+## Trouver les bâtiments localisés à plus d'une certaine distance d'une route
+
+Mode opératoire&nbsp;:
+
+* **Créez une zone tampon autour des routes dans une couche temporaire**&nbsp;;
+* Videz la sélection&nbsp;;
+* **Sélectionnez l'ensemble des bâtiments** (sélectionnez la couche correspondante dans la légende puis <kbd>Ctrl</kbd> <kbd>A</kbd>)&nbsp;;
+* Ouvrez le traitement "Sélection par localisation"&nbsp;;
+* Paramètre "Sélectionner les entités depuis"&nbsp;: sélectionnez la couche des bâtiments&nbsp;;
+* Paramètre "Où les entités"&nbsp;: sélectionnez "intersecte"&nbsp;;
+* Paramètre "En comparant les entités de "&nbsp;: sélectionnez la couche de la zone tampon&nbsp;;
+* Paramètre "Modifier la sélection actuelle en"&nbsp;: **sélectionnez "Enlever de la sélection courante**&nbsp;;
+* Cliquez sur le bouton "Exécuter".
+
+Une fois le traitement terminé, les bâtiments proches des routes ont été désélectionnés. Il ne reste dans la sélection que les objets éloignés des routes.
+
+# Comparer des objets d'une même couche
+Les outils de recherche par localisation peuvent être utilisés sur une seule et même couche&nbsp;: on recherche alors les objets d'une couche qui ont une relation de localisation particulière par rapport aux autres objets de la même couche.
+
+:warning: Les traitements de sélection et d'extraction dans un rayon ne fonctionnent pas lorsqu'ils sont appliqués sur une unique couche.
+
+:warning: Seules certaines conditions de localisation fonctionnent correctement lorsque l'on utilise la sélection par localisation sur une unique couche&nbsp;:
+
+* **Touche**, **Chevauche** et **Croisent** fonctionnent correctement&nbsp;;
+* Les autres conditions (**intersecte**, **contient**, **est disjoint**, **est à l'intérieur et égal**) ne fonctionnent pas&nbsp;!
+[test réalisé sur des polygones et des lignes avec QGIS 3.22.11]
+
+## Trouver les bâtiments isolés
+:warning: Pour identifier ces bâtiments l'idéal serait d'utiliser la condition de localisation **intersecte** (sa négation plutôt) ou **est disjoint**. Malheureusement, ces conditions ne fonctionnent pas dans QGIS (cf. avertissement plus haut). Il faut donc contourner cela en utilisant des conditions qui fonctionnent mieux. Si l'on est sûr que les bâtiments ne se chevauchent pas on peut utiliser la condition **touche**. Sinon, on peut utiliser la condition **chavauche**. Néanmoins, aucune des conditions qui fonctionnent correctement ne peut détecter des bâtiments entièrement contenus par d'autres bâtiments.
+
+:children_crossing: Pour cet exercice on va considérer qu'un bâtiment isolé est un bâtiment qui ne touche pas et qui ne chevauche pas un autre bâtiment en faisant abstraction des bâtiments inclus dans d'autres bâtiments. Pour trouver les bâtiments isolés on partira de l'ensemble des bâtiments dont on retirera les bâtiments qui touchent ou chevauchent au moins un autre bâtiment.
+
+Mode opératoire&nbsp;:
+
+* Videz la sélection&nbsp;;
+* **Sélectionnez l'ensemble des bâtiments** (sélectionnez la couche correspondante dans la légende puis <kbd>Ctrl</kbd> <kbd>A</kbd>)&nbsp;;
+* Ouvrez le traitement "Sélection par localisation"&nbsp;;
+* Paramètre "Sélectionner les entités depuis"&nbsp;: sélectionnez la couche des bâtiments&nbsp;;
+* Paramètre "Où les entités"&nbsp;: **sélectionnez à la fois "touche" et "chevauche"**&nbsp;;
+* Paramètre "En comparant les entités de "&nbsp;: sélectionnez la couche des bâtiments&nbsp;;
+* Paramètre "Modifier la sélection actuelle en"&nbsp;: **sélectionnez "Enlever de la sélection courante"**&nbsp;;
+* Cliquez sur le bouton "Exécuter".
+
+Fenêtre de configuration de "Sélection par localisation"&nbsp;:
+![filtres-requetes-20.png](assets/filtres-requetes-20.png)
+
+Exemple de résultat (les bâtiments isolés sont surlignés de jaune)&nbsp;:
+![filtres-requetes-21.png](assets/filtres-requetes-21.png)
+
+## Trouver les bâtiments très éloignés des autres
+:warning: Puisque les traitements de sélection et d'extraction d'entités dans un rayon autour d'autres entités ne fonctionnent pas lorsqu'ils sont appliqués à une unique couche nous devons appliquer une solution de contournement en utilisant l'outil de sélection par localisation.
+
+:children_crossing: Pour cet exercice nous allons suivre la même méthodologie que pour trouver les bâtiments qui ne sont en contact d'aucun autre bâtiment à la nuance près que nous allons utiliser des géométries altérées&nbsp:; nous allons appliquer un tampon dont la largeur correspond à la distance d'éloignement recherchée divisée par 2.
+
+Mode opératoire&nbsp;:
+
+* Créez une couche de zones tampon autour des bâtiments&nbsp;:
+  * Calculez la taille des zones tampon comme la distance d'éloignement recherchée divisée par deux&nbsp;;
+  * Créez une couche de zones tampon autour des bâtiments avec cette largeur (traitement "Tampon" - :warning: ne cochez pas "Regrouper les résultats")&nbsp;;
+  * **Créez un index spatial** pour la couche des zones tampon (dans onglet "Source" de la fenêtre des propriétés de la couche)&nbsp;;
+* Identifiez les zones tampon des bâtiments éloignés&nbsp;:
+  * **Sélectionnez l'ensemble des bâtiments** dans la couche des zones tampon (sélectionnez la couche correspondante dans la légende puis <kbd>Ctrl</kbd> <kbd>A</kbd>)&nbsp;;
+  * Ouvrez le traitement "Sélection par localisation"&nbsp;;
+  * Paramètre "Sélectionner les entités depuis"&nbsp;: sélectionnez la couche des zones tampon autour des bâtiments&nbsp;;
+  * Paramètre "Où les entités"&nbsp;: **sélectionnez à la fois "touche" et "chevauche"**&nbsp;;
+  * Paramètre "En comparant les entités de "&nbsp;: sélectionnez la couche des zones tampon autour des bâtiments&nbsp;;
+  * Paramètre "Modifier la sélection actuelle en"&nbsp;: **sélectionnez "Enlever de la sélection courante"**&nbsp;;
+  * Cliquez sur le bouton "Exécuter".
+* Identifiez les bâtiments associés aux zones tampon retenues&nbsp;:
+  * Ouvrez le traitement "Sélection par localisation"&nbsp;;
+  * Paramètre "Sélectionner les entités depuis"&nbsp;: sélectionnez la couche des bâtiments&nbsp;;
+  * Paramètre "Où les entités"&nbsp;: **sélectionnez "est à l'intérieur"**&nbsp;;
+  * Paramètre "En comparant les entités de "&nbsp;: sélectionnez la couche des zones tampon autour des bâtiments&nbsp;;
+  * Cochez la case "Entités sélectionnées uniquement"&nbsp;;
+  * Paramètre "Modifier la sélection actuelle en"&nbsp;: **sélectionnez "Créer une nouvelle sélection"**&nbsp;;
+  * Cliquez sur le bouton "Exécuter".
+
+Fenêtre de configuration de "Sélection par localisation"&nbsp;:
+![filtres-requetes-22.png](assets/filtres-requetes-22.png)
+
+Exemple de résultat (les bâtiments très éloignés sont surlignés de jaune)&nbsp;:
+![filtres-requetes-23.png](assets/filtres-requetes-23.png)

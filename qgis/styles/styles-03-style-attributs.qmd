@@ -1,0 +1,89 @@
+---
+title: Styles - adaptation aux valeurs des attributs
+subtitle: Style adaptatif en fonction des valeurs d'attributs
+from: markdown+emoji
+---
+
+# Différentes approches pour des styles adaptatifs
+Pour faire en sorte que le rendu d'une couche de données vecteur s'adapte aux valeurs de certains attributs plusieurs approches sont possibles&nbsp;:
+
+* Dans l'onglet "Symbologie", utiliser un mode de rendu conçu pour cela&nbsp;:
+  * **Gradué**&nbsp;: pour des attributs quantitatifs avec de nombreuses valeurs
+  * **Catégorisé**&nbsp;: pour des attributs dont les valeurs sont relativement peu nombreuses
+  * **Ensemble de règles**&nbsp;: pour appliquer des règles plus complexes
+* Dans l'onglet "Symbologie", utiliser des expressions basées sur les valeurs d'attributs pour faire varier les caractéristiques graphiques des symboles utilisés&nbsp;: épaisseur de trait et couleurs notamment.
+* Dans l'onglet "Étiquette", utiliser des expressions basées sur les valeurs d'attributs pour faire varier les caractéristiques graphiques ainsi que le contenu des étiquettes affichées à proximité des objets.
+
+# Usage d'ensembles de règles pour des catégories imbriquées
+Exemple d'en ensemble de règles exploitant deux attributs utilisés pour des catégories&nbsp;:
+
+* Créez un style avec le mode de rendu "Catégorisé" sur un premier attribut avec des valeurs discrètes (attribut FFN par exemple)&nbsp;;
+* Transformez ce style en sélectionnant le mode de rendu "Ensemble de règles". Les catégories précédemment créées sont conservées&nbsp;;
+* Sélectionnez une partie de ces règles, faites un clic-droit sur cette sélection et sélectionnez l'entrée du menu contextule intitulé "Affiner la règle courante - Ajouter des catégories à la règle"&nbsp;;
+![panneau-syle-couche-08.png](assets/panneau-syle-couche-08.png)
+* Sélectionnez l'attribut sur lequel la catégorisation doit être configurée et ajuster les catégories autant que de besoin&nbsp;;
+![panneau-syle-couche-10.png](assets/panneau-syle-couche-10.png)
+* Des sous catégories sont alors créées pour chacune des règles sélectionnées. Modifiez autant que de besoin la symbolisation de chaque règle.
+![panneau-syle-couche-09.png](assets/panneau-syle-couche-09.png)
+
+# Appliquer une symbologie particulière à certains objets
+Deux méthodes sont possibles pour appliquer une même symbologie à l'exception de certains objets&nbsp;:
+
+* Utiliser le mode de rendu **Catégorisé** puis appliquer des regroupements de certaines catégories&nbsp;;
+* Utiliser le mode de rendu **Ensemble de règles**.
+
+## Mode de rendu "Catégorisé"
+Mode opératoire&nbsp;:
+
+* Créez une symbologie de type "Catégorisé" sur un attribut ayant des valeurs discrètes&nbsp;;
+* Ajoutez-y l'ensemble des catégories disponibles (en cliquant sur le bouton "Classer")&nbsp;;
+* Sélectionnez l'ensemble des catégories à fusionner, faites un clic-droit et actionnez l'entrée "Fusionner les catégories"&nbsp;;
+![panneau-syle-couche-12.png](assets/panneau-syle-couche-12.png)
+* Adaptez la symbologie de chacune des catégories restantes.
+![panneau-syle-couche-13.png](assets/panneau-syle-couche-13.png)
+
+## Mode de rendu "Ensemble de règles"
+Mode opératoire&nbsp;:
+
+* Créez une symbologie de type "Ensemble de règles"&nbsp;;
+* Ajoutez une règle avec la propriété "Filtre" activée&nbsp;;
+![panneau-syle-couche-14.png](assets/panneau-syle-couche-14.png)
+* Ajoutez une règle avec la propriété "Sinon" activée&nbsp;;
+![panneau-syle-couche-15.png](assets/panneau-syle-couche-15.png)
+* Adaptez la symbologie de chacune des catégories restantes.
+![panneau-syle-couche-16.png](assets/panneau-syle-couche-16.png)
+
+# Appliquer des étiquettes à certains objets
+
+Mode opératoire&nbsp;:
+
+* Dans l'onglet "Étiquettes", choisissez le type d'étiquette "Étiquettes simples"&nbsp;;
+* Sélectionnez un attribut dans la liste "Valeur"&nbsp;;
+![panneau-syle-couche-17.png](assets/panneau-syle-couche-17.png)
+* Configurez le rendu de vos étiquettes. Chaque objet de la couche dispos alors d'une étiquette&nbsp;;
+![panneau-syle-couche-18.png](assets/panneau-syle-couche-18.png)
+* Basculez du mode de rendu "Étiquettes simples" à "Etiquetage basé sur des règles"&nbsp;;
+![panneau-syle-couche-19.png](assets/panneau-syle-couche-19.png)
+* La configuration d'étiquette simple est alors convertie en une configuration basée sur des règles avec une seule règle&nbsp;;
+![panneau-syle-couche-20.png](assets/panneau-syle-couche-20.png)
+* Double-cliquez sur cette règle pour en changer les paramètres et saisissez un filtre à l'aide d'une expression.
+![panneau-syle-couche-21.png](assets/panneau-syle-couche-21.png)
+![panneau-syle-couche-22.png](assets/panneau-syle-couche-22.png)
+
+# Usage des expressions pour les étiquettes
+
+Exemple d'usage des étiquettes pour présenter les valeurs de plusieurs attributs sur plusieurs lignes&nbsp;:
+![panneau-syle-couche-11.png](assets/panneau-syle-couche-11.png)
+
+Mode opératoire&nbsp;:
+
+* Dans le panneau de configuration des étiquettes, ouvrez l'éditeur d'expression associé au champ "Valeur" (à l'aide du bouton contenant le symbole grec Epsilon)&nbsp;;
+![panneau-syle-couche-23.png](assets/panneau-syle-couche-23.png)
+* Dans cet éditeur d'expression, rédiger une expression qui construit une chaîne de caractères composée de la juxtaposition des valeurs de plusieurs attributs. Exemple d'expression&nbsp;:
+`concat('FFN: ', "FFN", ',', 'FFN2: ', "FFN2", ',', 'SSR: ', "SSR")`
+Exemple de chaîne de caractères produite par cette expression&nbsp;: `"FFN: -999999,FFN2: -999999,SSR: 42"`. Il s'agit d'une séquence de d'éléments composés du nom d'un attribut et d'une valeur, ces éléments étant séparés par des virgules.
+![panneau-syle-couche-24.png](assets/panneau-syle-couche-24.png)
+* De retour dans le panneau de configuration des étiquettes, activez le deuxième onglet (onglet "Formatage")&nbsp;;
+![panneau-syle-couche-25.png](assets/panneau-syle-couche-25.png)
+* Dans la partie "Multiple lignes", indiquez le séparateur à utiliser pour répartir le texte de l'étiquette sur plusieurs lignes. Dans l'exemple d'expression précédent la virgule qui a été utilisée.
+![panneau-syle-couche-26.png](assets/panneau-syle-couche-26.png)

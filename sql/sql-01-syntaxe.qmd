@@ -1,0 +1,71 @@
+# Point-virgule
+
+Une requête SQL se termine usuellement par un point-virgule.
+Il permet de marquer la séparation entre deux requêtes.
+Il n’est pas nécessaire de placer un point-virgule si l’on exécute une seule requête. Dans les exemples du présent document, le point-virgule a été omis.
+
+# Commentaires
+
+Si vous souhaitez « mettre en commentaire » une portion d’un document SQL vous pouvez le faire selon les deux syntaxes décrites ci-dessous.
+
+Avec -- (deux signes de soustraction consécutifs) :
+``` {.sql}
+SELECT *
+FROM table
+-- WHERE colonne1 IS NOT NULL
+```
+
+Avec /* */ (commentaire du langage C) :
+``` {.sql}
+SELECT *
+FROM table
+/* WHERE colonne1 IS NOT NULL */
+```
+
+# Majuscules et minuscules
+
+De manière générale, PostgreSQL ne fait pas la différence entre majuscules et minuscules pour les mots-clefs du langage. Néanmoins, il fait la différence entre majuscules et minuscules pour les noms d’entités comme les schémas, tables, vues, etc. Il fait aussi la différence quand il s’agit de comparer des valeurs de colonnes textuelles.
+
+Par défaut, les noms des schémas, tables, vues , etc. sont créées en minuscules. Des majuscules peuvent être intégrées à un nom si l’utilisateur le signale explicitement en entourant ce nom par des guillemets doubles.
+
+Exemple :
+``` {.sql}
+CREATE TABLE "Ma_Table" (
+    id serial,
+    colonne1 text
+)
+```
+
+Si vous faites ce choix, vous devrez vous assigner à systématiquement entourer le nom de la table de guillemets doubles par la suite pour que PostgreSQL identifie correctement la table sur laquelle vous travaillez.
+C’est la raison pour laquelle dans la suite du présent document il a été fait les choix suivants :
+* utiliser les majuscules uniquement pour les mots-clefs du langage SQL (afin d’améliorer la lisibilité des requêtes) ;
+* utiliser systématiquement les minuscules pour les noms des schémas, tables, vues, colonnes pour éviter de devoir utiliser des guillemets doubles.
+
+Il s’agit de choix arbitraires qui sont très courants pour les utilisateurs de PostgreSQL.
+
+# Guillemets
+
+Les guillemets simples et doubles ne sont pas du tout interprétés de la même manière par les bases de données SQL :
+* guillemets simples : ils entourent valeur de type chaîne de caractères. Typiquement le nom d’une ville.
+* guillemets doubles : ils entourent éventuellement des noms de schémas, tables, vues, colonnes…
+
+Exemple : `"name" = 'Ardennes'` qui teste si la valeur de la colonne `name` est identique à la chaîne de caractères `Ardennes`.
+Cette expression est complètement différente des expressions suivantes :
+`'name' = 'Ardennes'` (qui teste si la chaîne de caractères `name` est identique à la chaine de caractères `Ardennes`)
+`'name' = "Ardennes"` (qui teste si la chaîne de caractères `name` est identique à la valeur de la colonne `Ardennes`)
+`"name" = "Ardennes"` (qui teste si la valeur de la colonne `name` est identique à la valeur de la colonne `Ardennes`)
+
+Ne confondez pas les guillemets utilisés par SQL et ceux utilisés pour un travail typographique classique et les apostrophes, à savoir les caractères `«` , `»`, `‘` et `’`. Il arrive fréquemment qu’en faisant un copier/coller d’une requête SQL depuis un outil comme Word ou Libre Office on récupère ce type de caractères. Si cela arrive, PostgreSQL risque de ne pas comprendre la requête ou de l’interpréter d’une manière étrange. Utilisez uniquement des guillemets droits dans vos requêtes.
+
+# Ordre des instructions
+
+L’ordre des instructions au sein d’une requête SQL suit des règles strictes. Typiquement une requête SELECT doit suivre l’ordre suivant pour ses différentes sections (seules les sections les plus couramment utilisées sont indiquées ici) :
+- SELECT
+- FROM
+- WHERE
+- GROUP BY
+- HAVING
+- ORDER BY
+- LIMIT
+
+Pour plus de lisibilité, les requêtes SQL du présent document ont été décomposées en plusieurs lignes. Il s’agit d’un choix arbitraire qui est très courant pour les utilisateurs de PostgreSQL.

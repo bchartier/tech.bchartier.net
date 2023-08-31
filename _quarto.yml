@@ -1,0 +1,27 @@
+project:
+  type: website
+
+website:
+  title: "bchartier-tech"
+
+  sidebar:
+    title: Table des matières
+    style: "docked"
+    search: false
+    contents:
+      - href: index.qmd
+        text: Accueil
+      - qgis/index.qmd
+      - ogc/index.qmd
+      - sql/index.qmd
+      - postgresql/index.qmd
+      - open-data/index.qmd
+      - sobriete/index.qmd
+      - outils/index.qmd
+      - about.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true

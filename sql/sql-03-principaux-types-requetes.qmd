@@ -1,0 +1,83 @@
+# Requête simple
+
+Structure générale des requêtes simples de sélection :
+
+``` {.sql}
+SELECT …
+FROM ...
+[WHERE ...]
+[ORDER BY ...]
+[LIMIT ...];
+```
+
+Explications&nbsp;:
+
+* SELECT&nbsp;: liste des colonnes de la table dont on souhaite récupérer les valeurs
+* FROM&nbsp;: liste des tables sur lesquelles la requête doit opérer
+* WHERE&nbsp;: expression contenant les conditions que doivent remplir les enregistrements que l'on cherche
+* LIMIT&nbsp;: nombre maximum d'enregistrements à récupérer
+
+
+Exemple d'une requête sur une table unique :
+Sélection dans le COG de l’INSEE des communes du département des Ardennes dont le libellé contient « Saint » :
+
+``` {.sql}
+SELECT com, reg, dep, libelle
+FROM limites_admin.cog_communes
+WHERE com LIKE '08%'
+  AND typecom = 'COM'
+  AND libelle LIKE '%Saint%';
+```
+
+# Jointure
+
+Structure générale des requêtes de jointure :
+
+``` {.sql}
+SELECT ...
+FROM table1, table2
+WHERE table1.colonne1 = table2.colonne2;
+```
+
+ou
+
+``` {.sql}
+SELECT ...
+FROM table1
+<TYPE DE JOINTURE> table2
+ON table1.colonne1 = table2.colonne2;
+```
+
+Exemple : sélection dans le COG de l’INSEE des communes du département des Ardennes dont le libellé contient « Saint » et ajout d’une colonne reprenant le code INSEE de l’EPCI de la commune :
+
+``` {.sql}
+SELECT cog.*, adm_express.siren_epci
+	FROM limites_admin.cog_communes AS cog, 
+       limites_admin.admin_express_communes AS adm_express
+	WHERE com LIKE '08%'
+    AND typecom = 'COM'
+    AND libelle LIKE '%Saint%'
+    AND cog.com = adm_express.insee_com;
+```
+
+# Agrégation
+
+Structure générale des requêtes d’agrégation :
+
+``` {.sql}
+SELECT ...
+FROM ...
+[WHERE ...]
+GROUP BY …
+[HAVING ...]
+```
+
+Exemple : dénombrement des communes du COG de l’INSEE par département et tri par valeur décroissante de ce dénombrement :
+
+``` {.sql}
+SELECT cog.dep, COUNT(*) AS denombrement
+  FROM limites_admin.cog_communes AS cog
+  WHERE cog.typecom = 'COM'
+  GROUP BY cog.dep
+  ORDER BY denombrement DESC;
+```

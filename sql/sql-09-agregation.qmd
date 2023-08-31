@@ -1,0 +1,33 @@
+# GROUP BY
+GROUP BY permet de regrouper des enregistrements en fonction des valeurs d'une ou plusieurs colonnes et d'appliquer des opérations d'agrégation sur chacun de ces groupes d'enregistrements.
+
+L'exemple suivant crée un groupe d'enregistrements basé sur les valeurs de la colonne `colonne1` et pour chacun d'eux réalise la somme des valeurs de la colonne `colonne2` :
+
+``` {.sql}
+SELECT colonne1, SUM(colonne2) AS somme
+FROM schema.table
+GROUP BY colonne1
+```
+
+Fonctions applicables à des agrégats :
+
+* applicable sur n’importe quel type de colonne : `COUNT`
+* applicable sur des colonnes numériques : `AVG`, `MIN`, `MAX`
+
+# WHERE
+Dans le cas d'une requête d'agrégation, la clause `WHERE` réalise un filtre sur les enregistrements qui contribuent au calcul de l'agrégation. Ce filtre est réalisé avant de procéder au reste de la requête (avant l'opération d'agrégation en elle-même).
+
+``` {.sql}
+SELECT colonne1, COUNT(colonne2) AS compteur
+FROM schema.table\nWHERE colonne1 IS NOT NULL
+GROUP BY colonne1
+```
+
+# HAVING
+Le mot-clef HAVING réalise un filtre sur les groupes à intégrer au résultat d’une agrégation. Ce filtre est donc appliqué après le calcul d'agrégation à proprement parler.
+
+``` {.sql}
+SELECT colonne1, COUNT(colonne2) AS compteur
+FROM schema.table
+GROUP BY colonne1\nHAVING compteur > 2
+```

@@ -1,0 +1,137 @@
+---
+title: Requêtes - gérer ses styles
+subtitle: Comment gérer ses styles dans QGIS
+from: markdown+emoji
+---
+
+# Gestionnaire de style
+## Introduction
+Accès au gestionnaire de style de QGIS&nbsp;: menu Préférences / Gestionnaire de styles...<br>
+![gestionnaire-styles-01.png](assets/gestionnaire-styles-01.png)<br>
+![gestionnaire-styles-02.png](assets/gestionnaire-styles-02.png)
+
+Le gestionnaire de style de QGIS permet de mettre à disposition et d'organiser des configurations graphiques réutilisables&nbsp;:
+
+* fournies par QGIS au moment de son installation&nbsp;;
+* que vous avez créées vous-mêmes avec QGIS&nbsp;;
+* que vous avez importées à partir de fichiers fournis par des tiers.
+
+Ces configurations graphiques sont de plusieurs natures&nbsp;:
+
+* Des symboles (pour des objects vecteur ponctuels, linéaires et surfaciques)&nbsp;;
+* Des palettes de couleurs (applicables à des modes de rendu "Gradué" par exemple)&nbsp;;
+* Des paramétrages d'étiquettes.
+
+:warning: Les paramètres fins des styles ne sont pas gérés par le gestionnaire de styles&nbsp;: les règles, échelles de visibilité, filtres et autres associations à des attributs des objets ne sont pas gérés. Le gestionnaire de styles n'est pas réellement un gestionnaire de style mais plutôt un gestionnaire de symboles.
+
+:warning: Pour sauvegarder des styles complets ou des configurations complètes de couches il faut passer par la création de fichiers QML ou QLR.
+
+## Utiliser un symbole du gestionnaire de styles
+Les symboles mis à disposition par le gestionnaire de style sont affichés en bas de la partie "Symbole" de l'éditeur de symbole.
+![gestionnaire-styles-03.png](assets/gestionnaire-styles-03.png)
+
+:warning: Les symboles du gestionnaire de styles n'apparaissent que lorsque l'élément parent du symbole est sélectionné. 
+
+Cette partie de l'interface utilisateur comprend trois parties&nbsp;:
+
+* Partie haute &nbsp;: la recherche par mots-clefs dans les différentes rubrique. Le bouton à droite du champ de recherche permet d'ouvrir le gestionnaire de styles.
+* Partie centrale&nbsp;: l'aperçu des différents symboles correspondant à la recherche en cours&nbsp;;
+* Partie basse&nbsp;: les options d'affichage des symboles et le bouton pour sauvegarder le symbole courant dans le gestionnaire de style.
+
+Pour utiliser un symbole du gestionnaire de style&nbsp;: sélectionnez-le dans la liste.
+
+## Sauvegarder un symbole
+Pour sauvegarder un symbole, cliquez sur le bouton "Enregistrer le symbole..."&nbsp;:
+![gestionnaire-styles-04.png](assets/gestionnaire-styles-04.png)
+
+Pour sauvegarder une configuration d'étiquettes, cliquez sur le bouton ""&nbsp;:
+![gestionnaire-styles-05.png](assets/gestionnaire-styles-05.png)
+
+Une boîte de dialogue s'affiche et vous demande de renseigner quelques informations à propos de la configuration que vous souhaitez enregistrer&nbsp;:
+![gestionnaire-styles-06.png](assets/gestionnaire-styles-06.png)
+
+Les étiquettes et la case à coher "Ajouter aux marque-pages" permettent d'intégrer le symbole dans des catégories spécifiques.
+
+:bulb: Séparez les différentes mots-clefs par des virgules pour intégrer le symbole dans plusieurs catégories.
+
+## Organiser ses symboles
+Gestionnaire de styles de QGIS&nbsp;:<br>
+![gestionnaire-styles-07.png](assets/gestionnaire-styles-07.png)
+
+La partie gauche du gestionnaire de style permet d'organiser les styles dans différentes rubriques&nbsp;:
+
+* **Marque-pages**&nbsp;: ce sont les symboles que vous avez identifié comme étant vos préférés (grâce au menu "Ajouter aux marque-pages")&nbsp;;
+* **Étiquettes**&nbsp;: chaque mot-clef utilisé pour catégorisé les symboles est présent dans cette partie&nbsp;;
+* **Groupes intelligents**&nbsp;: groupes que vous pouvez configurer à l'aide de règles.
+
+Exemple d'usage du gestionaire de style pour associer des symboles à un nouveau mot-clef&nbsp;:
+
+* Avec le bouton "Ajouter un mot-clé", créez une nouvelle catégorie de symboles&nbsp;:<br>
+![gestionnaire-styles-08.png](assets/gestionnaire-styles-08.png)<br>
+![gestionnaire-styles-09.png](assets/gestionnaire-styles-09.png)
+* Avec le champ de recherche en bas à droite, réaliser une recherche de symbole pouvant correspondre à votre mot-clé et sélectionnez-les&nbsp;;<br>
+![gestionnaire-styles-10.png](assets/gestionnaire-styles-10.png)
+* Sélectionnez les symboles à associer au mot-clef et activez le menu contextuel "Ajouter au mot-clé / votre mot-clé"&nbsp;;<br>
+![gestionnaire-styles-11.png](assets/gestionnaire-styles-11.png)
+* Lorsque vous sélectionnez votre mot-clef dans la liste des étiquettes à gauche, vous retrouvez tous les symboles associés.<br>
+![gestionnaire-styles-12.png](assets/gestionnaire-styles-12.png)
+
+## Exporter des symboles
+Mode opératoire&nbsp;:
+
+* Cliquez sur le bouton "Importer / Exporter" et sélectionnez "Exporter les objets..."&nbsp;;<br>
+![gestionnaire-styles-13.png](assets/gestionnaire-styles-13.png)
+* Dans la fenêtre qui apparaît, sélectionnez manuellement les symboles à exporter ou via la sélection d'un groupe (bouton "Sélectionner par groupe...")&nbsp;;<br>
+![gestionnaire-styles-14.png](assets/gestionnaire-styles-14.png)
+* Cliquez sur le bouton "Exporter"&nbsp;;
+* Choisissez l'emplacement et le nom du fichier à exporter.
+
+## Importer des symboles
+Mode opératoire&nbsp;:
+
+* Cliquez sur le bouton "Importer / Exporter" et sélectionnez "Importer les objets..."&nbsp;;<br>
+![gestionnaire-styles-16.png](assets/gestionnaire-styles-16.png)
+
+* Dans la fenêtre qui apparaît, sélectionnez le fichier à imorter et configurez les options d'import à appliquer&nbsp;;<br>
+![gestionnaire-styles-15.png](assets/gestionnaire-styles-15.png)
+  * "Ajouter aux marque-pages"&nbsp;: pour intégrer les symboles à vos symboles préférés,
+  * "Ne pas imorter les étiquettes intégrées"&nbsp;: pour ne pas prendre en compte les mot-clefs présents dans le fichier à importer,
+  * "Mots-clés supplémentaires"&nbsp;: pour définir vos propres mots-clefs,
+  * "Sélectionner les éléments à importer"&nbsp;: choisissez les symboles à importer.
+
+# Sauvegarder et partager un style complet
+2 formats d’export des informations d’une couche&nbsp;:
+
+* Format QML&nbsp;:
+  * Contient les styles des couches
+  * Ne contient aucune information sur la source des données
+  * Format spécifique à QGIS
+
+* Format QLR&nbsp;:
+  * Peut contenir toutes les propriétés d’une couche
+  * Y compris la localisation de la source de données
+  * Format spécifique à QGIS
+
+## Partage d'un style via un fichier QML
+2 modes opératoires sont possibles&nbsp;:
+
+1. Dans la liste des couches de QGIS&nbsp;:
+  * Faites un clic-droit sur la couche dont il faut exporter le style,
+  * Sélectionnez le menu "Exporter / Enregistrer comme fichier de style de couche QGIS..."<br>
+![style-fichier-qml-01.png](assets/style-fichier-qml-01.png)
+ &nbsp;:warning: cette méthode ne permet d'exporter que le style actif et pas les autres styles de la couche courante.
+  
+2. Dans la fenêtre "Propriétés de la couche" ou dans le panneau "Style de couche"&nbsp;:
+  * Ouvrez le menu "Styles" situé tout en bas,<br>
+![style-fichier-qml-02.png](assets/style-fichier-qml-02.png)
+  * Sélectionnez l'entrée "Enregistrer le style courant...",
+ &nbsp;:warning: Cette entrée du menu n'enregistre que le style courant de la couche.
+  ou
+  * Sélectionnez l'entrée "Enregistrer tous les styles...".
+ &nbsp;:warning: Cette entrée du menu enregistre tous les styles de la couche.
+
+## Partage d'un style via un fichier QLR
+Dans la liste des couches de QGIS&nbsp;:
+* Faites un clic-droit sur la couche il faut exporter le style&nbsp;;
+* Sélectionnez le menu "Exporter / Enregistrer un fichier de définition de couche...".<br>
+![style-fichier-qlr-01.png](assets/style-fichier-qlr-01.png)

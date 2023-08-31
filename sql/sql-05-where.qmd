@@ -1,0 +1,91 @@
+# Condition relative à un seuil
+
+``` {.sql}
+SELECT *
+FROM schema.table
+WHERE colonne1 < 10;
+```
+
+Opérateurs numériques : `<`, `>`, `<=`, `>=`, `=`, `<>`, `!=`
+
+
+# Condition relative à des valeurs textuelles
+
+``` {.sql}
+SELECT *
+FROM schema.table
+WHERE colonne1 LIKE '08___';
+```
+
+Opérateurs de comparaison des chaînes de caractères : `=`, `LIKE`, `SIMILAR`
+Caractères spéciaux pour opérateur `LIKE` :<br>
+	`_` représente un caractère quel qu’il soit<br>
+	`%` représente n’importe quelle quantité de caractères (y compris 0)
+
+
+# Combinaisons logiques de conditions
+
+``` {.sql}
+SELECT *
+FROM schema.table
+WHERE colonne1 < 10 AND NOT colonne2 = 10.5;
+```
+
+Opérateurs logiques : `AND`, `OR`, `NOT`
+
+Il est également possible d'utiliser des parenthèses lorsque l'on combine des AND, OR et NOT. Cela permet de rendre les conditions complexes plus lisibles et de s'abstraire des priorités d'interprétation de ces opérateurs.
+
+``` {.sql}
+SELECT *
+FROM schema.table
+WHERE (colonne1 < 10 AND NOT colonne2 = 10.5) OR colonne1 = 0;
+```
+
+
+# Chaîne de caractères de longueur nulle
+
+``` {.sql}
+SELECT *
+FROM schema.table
+WHERE colonne1 = '';
+```
+Une chaîne de caractères de longueur nulle est une valeur comme une autre
+(ne pas confondre avec `NULL`).
+
+
+# Colonne non-renseignée
+
+``` {.sql}
+SELECT *
+FROM schema.table
+WHERE colonne1 IS NULL;
+```
+
+Le test logique inverse est `IS NOT NULL`.
+`NULL` n’est pas une valeur ; il désigne l’absence de renseignement d’une colonne.
+
+
+# Condition utilisant une liste de valeurs
+
+``` {.sql}
+SELECT *
+FROM schema.table
+WHERE colonne1 IN (valeur1, valeur2, valeur3);
+```
+
+
+# Condition utilisant une plage de valeurs
+
+``` {.sql}
+SELECT *
+FROM schema.table
+WHERE colonne1 BETWEEN valeur1 AND valeur2;
+```
+
+# Condition utilisant une fonction
+
+``` {.sql}
+SELECT *
+FROM schema.table
+WHERE lower(colonne1) = 'ardennes';
+```

@@ -1,0 +1,32 @@
+---
+title: Expressions - champs calculés
+subtitle: Configuration des champs calculés dans QGIS
+from: markdown+emoji
+---
+
+## Créer un champ calculé
+
+Les champs calculés peuvent être créés dans QGIS à partir de plusieurs endroits&nbsp;:
+
+- Le bouton "Ouvrir la calculatrice de champ" de la barre d'outils "Attributs"&nbsp;;
+- L'onglet "Champs" de la fenêtre "Propriétés de la couche"&nbsp;;
+- Le bouton "Ouvrir la calculatrice de champ" de la table attributaire.
+
+## Champs virtuels
+
+Lorsque l'on crée un champ calculé on a la possibilité d'en faire un champ virtuel (il faut le préciser au moment de la création).
+
+Un champ virtuel a les propriétés suivantes&nbsp;:
+
+- le champ virtuel n'a d'existance que dans le projet dans lequel vous le définissez&nbsp;;
+- la donnée source n'est pas altérée par le champ virtuel&nbsp;;
+- QGIS recalcule à la volée les valeurs du champ virtuel autant que de besoin à partir de l'expression que vous avez définie.
+
+:warning: Il en résulte que les performances de navigation et d'interrogation de couches contenant des champs virtuelles peuvent être moins bonnes que celles de champs plus classiques. C'est particulièrement le cas lorsque l'expression utilisée réalise des requêtes géographiques (par exemple avec la fonction `overlay_intersects`).
+
+:bulb: Quand utiliser un champ virtuel&nbsp;?
+
+- Lorsque la quantité d'entités dans la couche est raisonnable&nbsp;;
+- Lorsqu'il est important que l'expression servant au calcul du champ soit réévaluée (par exemple si l'expression prend en compte des informations d'une couche mise à jour au fil du temps)&nbsp;;
+- Lorsque l'on ne peut pas ou ne veut modifier la structure des données source.
+
