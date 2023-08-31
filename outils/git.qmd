@@ -49,6 +49,8 @@ Fichiers à exclure sans apparaître dans le .gitignore :
 .git/info/exclude
 ```
 
+[Patterns de .gitignore](https://www.atlassian.com/git/tutorials/saving-changes/gitignore#git-ignore-patterns)
+
 
 # Récupération d'un pullrequest pour test en local
 ``` {.sh}
