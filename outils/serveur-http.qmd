@@ -1,6 +1,6 @@
 ---
 title: "Serveur HTTP"
-subtitle: "Création d'un serveur HTTP - différentes méthodes"
+subtitle: "Création d'un serveur HTTP local de dev - différentes méthodes"
 ---
 
 # Avec Python
