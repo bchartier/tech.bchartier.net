@@ -1,0 +1,11 @@
+---
+title: "Styles"
+subtitle: "Édition des styles dans QGIS"
+order: 4
+---
+
+1. [Découverte de l'interface utilisateur](styles-01-apercu-ihm.qmd)
+1. [Modes de rendu](styles-02-onglet-symbologie-modes-rendu.qmd)
+1. [Style variable en fonction d'attributs](styles-03-style-attributs.qmd)
+1. [Style variable en fonction de l'échelle](styles-04-style-variable-echelle.qmd)
+1. [Gérer ses styles](styles-05-gerer-ses-styles.qmd)

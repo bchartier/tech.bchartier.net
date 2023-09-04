@@ -1,0 +1,10 @@
+---
+title: "PostGIS - Erreurs sur les géométries"
+subtitle: "Détection d'erreurs sur les géométries avec PostGIS"
+---
+
+Détection de faibles tolérances à l'approximation&nbsp;:
+
+* [ST_ReducePrecision](https://postgis.net/docs/ST_ReducePrecision.html)
+* [ST_MinimumClearanceLine](https://postgis.net/docs/ST_MinimumClearanceLine.html)
+* [ST_MinimumClearance](https://postgis.net/docs/ST_MinimumClearance.html)

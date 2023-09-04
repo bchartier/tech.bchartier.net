@@ -1,0 +1,41 @@
+---
+title: Recherches topologiques avancées
+subtitle: Filtres et requêtes topologiques avancées dans QGIS
+from: markdown+emoji
+---
+
+# Recherche d'extrémités de tronçons non connectés proches
+Mode opératoire général&nbsp;:
+
+1. Extraire les extrémités des tronçons du réseau&nbsp;;
+1. Identifier les extrémités de tronçons non connectées&nbsp;;
+1. Rechercher les extrémités de tronçons proches les unes des autres.
+
+## Extraire les extrémités de tronçons
+Mode opératoire&nbsp;:
+
+* Utilisez le traitement "Extraire des sommets spécifiques" pour extraire le premier sommet de chaque tronçon du réseau (indice de sommet à utiliser&nbsp;: 0)&nbsp;;
+* Utilisez le même traitement pour extraire le dernier sommet de chaque tronçon (indice de sommet à utiliser&nbsp;: -1)&nbsp;;
+* Fusionnez les deux couches de sommets dans une seule couche de points avec le traitement "Fusionner des couches vecteur"&nbsp;;
+* Supprimez les doublons avec le traitement "Supprimer les géométries dupliquées".
+
+## Identifier les extrémités de tronçons non connectées
+Mode opératoire&nbsp;:
+
+* Créez un champ calculé virtuel à l'aide du calculateur de champ pour identifier les extrémités de tronçons déconnectés&nbsp;:
+  * Nom du champ&nbsp;: est_deconnecte
+  * Type de champ&nbsp;: Booléen
+  * Expression de calcul du champ&nbsp;:
+``` {.txt}
+array_length(
+ overlay_touches('ROAD_C', expression:=1)
+) = 1
+```
+
+Cette expression compte le nombre de tronçons de la couche ROAD_C qui touchent l'entité courante. Elle teste ensuite si ce nombre est égal à 1. Si c'est le cas, c'est que l'extrémité de tronçon n'est connecté qu'à un seul tronçon. Il a donc une extrémité non connectée.
+
+## Rechercher les extrémités de tronçons proches
+Mode opératoire&nbsp;:
+
+* Créez une couche de zones tampon autour des extrémités déconnectées. Utilisez pour cela un rayon égal à la moitié du seuil de distance que vous voulez tester&nbsp;;
+* Utiliser l'outil de traitement "Sélection par localisation" sur ces zones tampon avec la condition **chevauche**.

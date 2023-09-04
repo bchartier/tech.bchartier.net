@@ -1,0 +1,33 @@
+---
+title: "DISTINCT"
+subtitle: "Extraire les différentes valeurs d'un champ"
+order: 5
+---
+
+Le mot-clef DISTINCT permet de récupérer des valeurs distinctes (sans répétition des valeurs identiques).
+
+
+# Liste des valeurs distinctes d’une colonne
+
+``` {.sql}
+SELECT DISTINCT colonne1
+FROM schema.table;
+```
+
+
+# Valeurs distinctes avec filtre
+
+``` {.sql}
+SELECT DISTINCT colonne1
+FROM schema.table
+WHERE colonne1 > 10.5
+  AND colonne2 IS NOT NULL;
+```
+
+
+# Valeurs distinctes sur plusieurs colonnes
+
+``` {.sql}
+SELECT DISTINCT colonne1, colonne 2
+FROM schema.table;
+```

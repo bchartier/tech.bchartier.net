@@ -1,0 +1,49 @@
+---
+title: Aperçu
+subtitle: Aperçu de l'interface utilisateur consacrée aux styles
+from: markdown+emoji
+---
+
+# Menu contextuel "Styles"
+Lorsque l'on réalise un clic-droit sur le nom d'une couche, le menu contextuel de QGIS contient une entrée "Styles" qui propose des fonctions de gestion des styles de la couche courante et aussi un nuancier qui permet de modifier immédiatement la couleur principale du style actif.
+![menu-contextuel-styles-01.png](assets/menu-contextuel-styles-01.png)
+
+# Fenêtre "Propriétés" d'une couche
+L'accès le plus naturel pour configurer le style d'une couche est de passer par la fenêtre propriétés&nbsp;:
+![fenetre-proprietes-01.png](assets/fenetre-proprietes-01.png
+
+Dans la fenêtre "Propriétés" de la couche les onglets suivants permettent de configurer le style de la couche&nbsp;:
+
+* Symbologie
+* Étiquettes
+* Masque
+
+Fenêtre "Prorpriétés" - onglet "Symbologie"&nbsp;:
+![fenetre-proprietes-02.png](assets/fenetre-proprietes-02.png)
+
+Cette fenêtre est modale. Cela signifie que vous ne pouvez pas manipuler d'autres éléments de QGIS avant de l'avoir fermée. Par exemple, vous ne pouvez pas zoomer sur une zone de la carte, ni masquer d'autres couches, ni les réordonner pendant que vous modifier le style d'une couche.
+
+Autre inconvénient de cette fenêtre&nbsp;: les modifications réalisées dans cette fenêtre ne sont pas appliquées immédiatement mais uniquement lorsque vous cliquez sur le bouton "Appliquer" ou sur le bouton "OK" (ce dernier entraine la fermeture de la fenêtre).
+
+# Panneau "Style de Couche"
+Pour contourner les limitations du menu contextuel "Styles" et de la fenêtre "Propriétés" nous pouvons utiliser le panneau "Style de couche". Pour l'activer, faites un clic-droit dans une barre d'outils de QGIS&nbsp;:
+![menu-contextuel-panneaux-01.png](assets/menu-contextuel-panneaux-01.png)
+
+Ce panneau apparaît par défaut sur la droite de la carte de QGIS même s'il peut être déplacé à la convenance de chacun comme tous les panneaux de l'interface de QGIS.
+![panneau-syle-couche-01.png](assets/panneau-syle-couche-01.png)
+
+Les principaux avantages de ce panneau&nbsp;:
+
+* il reprend les onglets de personnalisation des styles de la fenêtre "Propriétés" ;
+* il propose des fonctions de gestion des styles supplémentaires (en particulier l'onglet "Historique") ;
+* les modifications réalisées dans ce panneau sont appliquées à la carte immédiatement ;
+* il est possible de continuer à interagir avec la carte pendant que l'on personnalise le style.
+
+# Onglets du panneau Style de couche
+
+* **Symbologie**&nbsp;: pour définir le style graphique à appliquer aux objets vecteur en fonction de leur géométrie
+* **Étiquettes**&nbsp;: pour définir le contenu et l'apparence des étiquettes affichées à proximité des objets de la couche
+* **Masques**&nbsp;: pour appliquer des masques sur la couche afin d'en améliorer la lisibilité de la carte en cas de superposition d'éléments venant de différentes couches (voir la [documentation officielle](https://docs.qgis.org/latest/fr/docs/user_manual/working_with_vector/vector_properties.html#masks-properties))
+* **Vue 3D**&nbsp;: pour paramétrer le rendu dans la vue cartographique 3D (voir la [documentation officielle](https://docs.qgis.org/latest/fr/docs/user_manual/working_with_vector/vector_properties.html#d-view-properties))
+* **Gestionnaire de style**&nbsp;: pour gérer plusieurs styles au niveau d'une même couche
+* **Historique**&nbsp;: pour revenir à un état précédent du style

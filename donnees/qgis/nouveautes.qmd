@@ -1,0 +1,33 @@
+---
+title: "Nouveautés"
+subtitle: "Apports des dernières versions de QGIS"
+order: 5
+---
+
+# QGIS 3.22
+
+- [Basculer l’édition sur plusieurs couches sélectionnées](https://www.qgis.org/fr/site/forusers/visualchangelog322/index.html#feature-toggle-editing-on-multiple-selected-layers)
+- [Identification des groupes de couches et de toutes les couches sélectionnées](https://www.qgis.org/fr/site/forusers/visualchangelog322/index.html#feature-identify-layer-groups-and-all-selected-layers)
+- [Add a ‘Show in Files’ action for all file items in browser](
+https://www.qgis.org/fr/site/forusers/visualchangelog322/index.html#feature-add-a-show-in-files-action-for-all-file-items-in-browser)
+- [Custom units for geometry generator symbol layers](https://www.qgis.org/fr/site/forusers/visualchangelog322/index.html#feature-custom-units-for-geometry-generator-symbol-layers)
+- [Geometry snapper algorithm optimization](https://www.qgis.org/en/site/forusers/visualchangelog322/index.html#feature-geometry-snapper-algorithm-optimization)
+- [File-based dataset size and last modified date in the layer properties dialog](https://www.qgis.org/en/site/forusers/visualchangelog322/index.html#feature-file-based-dataset-size-and-last-modified-date-in-the-layer-properties-dialog)
+- [Rename files in QGIS Browser](
+https://www.qgis.org/en/site/forusers/visualchangelog322/index.html#feature-rename-files-in-qgis-browser)
+- [Add new “Select within distance” and “Extract within distance” algorithms](https://www.qgis.org/en/site/forusers/visualchangelog322/index.html#feature-add-new-select-within-distance-and-extract-within-distance-algorithms)
+
+
+# QGIS 3.20
+
+- [Options supplémentaires d’ouverture des tables attributaire](
+https://www.qgis.org/fr/site/forusers/visualchangelog320/index.html#feature-additional-options-for-opening-attribute-tables)
+- [Définir la taille de toutes les colonnes de la table attributaire](https://www.qgis.org/fr/site/forusers/visualchangelog320/index.html#feature-set-size-for-all-columns-in-attribute-table)
+- [Intégration du géocodeur Nominatim](https://www.qgis.org/fr/site/forusers/visualchangelog320/index.html#feature-nominatim-geocoder-integration)
+- [Améliorations de la boîte de dialogue de l’historique du traitement](https://www.qgis.org/fr/site/forusers/visualchangelog320/index.html#feature-processing-history-dialog-improvements)
+- [Icônes des couches cartographiques dans la boîte de dialogue de création d’expressions](https://www.qgis.org/fr/site/forusers/visualchangelog320/index.html#feature-map-layer-icons-in-the-expression-builder-dialog)
+- [Balloon (speech bubble) callouts](https://www.qgis.org/fr/site/forusers/visualchangelog320/index.html#feature-balloon-speech-bubble-callouts)
+- [Toggle label layers shortcut](https://www.qgis.org/fr/site/forusers/visualchangelog320/index.html#feature-toggle-label-layers-shortcut)
+- [Select vertices by polygon](https://www.qgis.org/fr/site/forusers/visualchangelog320/index.html#feature-select-vertices-by-polygon)
+- [Layer notes](https://www.qgis.org/fr/site/forusers/visualchangelog320/index.html#feature-layer-notes)
+- [Custom icon colors for folders in browser](https://www.qgis.org/fr/site/forusers/visualchangelog320/index.html#feature-custom-icon-colors-for-folders-in-browser)

@@ -1,0 +1,8 @@
+---
+title: "Édition"
+subtitle: "Édition des objets vecteurs avec QGIS"
+order: 1
+---
+
+1. [Bases](edition-01-bases.qmd)
+1. [Accrochage](edition-02-accrochage.qmd)

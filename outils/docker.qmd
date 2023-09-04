@@ -1,0 +1,69 @@
+---
+title: "Docker"
+subtitle: "Aide-mémoire pour Docker"
+---
+
+# Docker
+
+Créer une image à partir d'un dockerfile dans le répertoire courant&nbsp;:<br>
+``` {.sh}
+docker build -t image_name .
+```
+
+Lancer une session bash dans un container non arrêté&nbsp;:<br>
+``` {.sh}
+docker exec -it container_name bash
+```
+
+Lancer une session interactive dans un container arrêté&nbsp;:<br>
+``` {.sh}
+docker run -it --name container_name image_name bash
+```
+
+Lancer un container en mode détaché&nbsp;:<br>
+``` {.sh}
+docker run -d --name container_name image_name bash
+```
+
+# Docker Compose
+
+## Ligne de commande
+Lancer l'orchestration&nbsp;:<br>
+``` {.sh}
+docker compose up -d
+```
+
+Afficher l'état des containers&nbsp;:<br>
+``` {.sh}
+docker compose ps
+```
+
+Afficher les logs des containers&nbsp;:<br>
+``` {.sh}
+docker compose logs
+```
+
+Arrêter les containers&nbsp;:<br>
+``` {.sh}
+docker compose stop
+```
+
+Supprimer les containers&nbsp;:<br>
+``` {.sh}
+docker compose rm
+```
+
+## Rédaction
+
+### Exemples
+
+Exemples de docker compose&nbsp;: [awesome-compose ](https://github.com/docker/awesome-compose).
+
+### Variante locale non commitée
+
+- créer un fichier compose-local-dev.yml par exemple
+- créer un fichier .env avec une variable [COMPOSE_FILE](https://docs.docker.com/compose/environment-variables/envvars/#compose_file) pointant vers le fichier compose-local-dev.yml
+- ne pas intégrer les fichiers .env et docker compose-local-dev.yml dans les commits (.gitignore par exemple)
+
+
+

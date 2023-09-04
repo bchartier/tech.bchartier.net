@@ -1,7 +1,0 @@
----
-title: "OGC"
-subtitle: "Standards de l'Open Geospatial Consortium"
----
-
-1. [WMS](wms.qmd)
-

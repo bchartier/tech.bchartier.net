@@ -1,8 +1,0 @@
----
-title: "QGIS - Édition"
-subtitle: "Édition des objets vecteurs avec QGIS"
----
-
-0. [QGIS - Accueil](..)
-1. [Bases](edition-01-bases.qmd)
-1. [Accrochage](edition-02-accrochage.qmd)

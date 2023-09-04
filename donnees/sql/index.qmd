@@ -1,0 +1,15 @@
+---
+title: "SQL"
+subtitle: "Langage SQL"
+---
+
+1. [Syntaxe](sql-01-syntaxe.qmd)
+1. [Types de requêtes](sql-02-principaux-types-requetes.qmd)
+1. [SELECT simple](sql-03-select.qmd)
+1. [WHERE](sql-04-where.qmd)
+1. [DISTINCT](sql-05-distinct.qmd)
+1. [Fonctions](sql-06-fonctions.qmd)
+1. [Alias](sql-07-alias.qmd)
+1. [Agrégations](sql-08-agregation.qmd)
+1. [Jointures](sql-09-jointure.qmd)
+1. [Aller plus loin](sql-10-plus-loin.qmd)

@@ -1,0 +1,44 @@
+---
+title: Accrochage
+subtitle: Accrochage des géométries dans QGIS
+from: markdown+emoji
+order: 2
+---
+
+# Activer l'accrochage
+L'accrochage à des géométries existante lors de la saisie est géré via la barre d'outils "Accrochage"&nbsp;:<br>
+![accrochage-01.png](assets/accrochage-01.png)
+
+Pour activer l'accorchage, enfoncez le bouton en forme d'aimant.
+
+# Configurer l'accrochage
+Le deuxième bouton permet de configurer l'accroche selon des modes plus ou moins avancés&nbsp;:
+- **Toutes les couches** : le système d'accrochage s'active sur toutes les couches visibles sur la carte avec la même configuration pour toutes les couches&nbsp;;
+- **Couche active** : le système d'accrochage s'active uniquement sur la couche en cours d'édition&nbsp;;
+- **Configuration avancée** : on peut choisir quelles couches peuvent servir à l'accrochage et configurer l'accorchage de manière différente pour chacune de ces couches.
+
+## Paramètres importants de l'accrochage
+* distance d'accrochage
+* lieu d'accrochage&nbsp;:
+  * sommet
+  * segment : n'importe où sur un segement
+  * centre d'un segment
+  * surface : n'importe quel point d'une surface
+  * centroïde : exactement sur le centroïde d'une surface
+  * point d'extrémité d'une ligne
+* activer le tracé : mode de saisie permettant d'éviter de saisir tous les points
+
+# Activer le tracé
+L'accrochage avec l'activation de tracé permet de répliquer une portion de géométrie sans avoir à saisir un à un l'ensemble des points intermédiaires.
+
+:warning: Avec la version 3.22, ce mode de saisie fonctionne de manière médiocre en WGS84. Cela fonctionne beaucoup mieux avec une projection métrique.
+
+Mode opératoire&nbsp;:
+
+* Activez le mode tracé<br>
+![accrochage-02.png](assets/accrochage-02.png)<br>
+* Saisissez un point sur une autre géométrie pour laquelle vous avez activé l'accrochage sur les sommets. Cela marque le début de la portion de géométrie que vous souhaitez répliquer&nbsp;;
+* Sans saisir d'autres points, sans appuyer sur aucun bouton de la souris, faites glisser le curseur de la souris le long de la portion de géométrie que vous souhaitez répliquer&nbsp;;
+* Cliquez sur l'extrémité de la portion de géométrie à répliquer&nbsp;;
+* Saisissez éventuellement d'autres points&nbsp;;
+* Finalisez la saisie de la géométrie (clic-droit).

@@ -1,0 +1,57 @@
+---
+title: Recherches dans un carroyage
+subtitle: Recherche d'objets dans un carroyage avec QGIS
+from: markdown+emoji
+---
+
+Objectif&nbsp;: comptabiliser les objets d'une couche situés dans chaque maille d'un carroyage.
+
+Méthodologie&nbsp;:
+
+1. Créer un carroyage
+2. Créer un champ calculé qui comptabilise la présence d'objets
+
+## Création du carroyage
+
+La création d'un carroyage régulier est facilitée par l'emploi du traitement "Créer une grille". ce traitement crée une nouvelle couche de données composée d'éléments alignés sur une grille.
+![filtres-requetes-24.png](assets/filtres-requetes-24.png)
+
+:warning: Utilisez le type de grille "Rectangle" pour créer un carroyage composé de polygones rectangulaires.
+
+:bulb: Utilisez le menu déroulant à droite du champ "Étendue de la grille" pour calculer automatiquement l'emprise de la couche créée à partir de l'emprise de la couche de données à analyser, à partir de l'emprise de la carte ou en la dessinant sur la carte.
+![filtres-requetes-25.png](assets/filtres-requetes-25.png)
+
+
+## Création du champ calculé
+
+Pour créer un champ calculé, cliquez sur le bouton "Ouvrir la calculatrice de champ" de la barre d'outils "Attributs"&nbsp;:
+![filtres-requetes-26.png](assets/filtres-requetes-26.png)
+
+Remplissez le formulaire de la manière suivante&nbsp;:
+![filtres-requetes-27.png](assets/filtres-requetes-27.png)
+
+* **Nom**&nbsp;: donnez un nom à votre champ calculé&nbsp;;
+* **Type**&nbsp;: sélectionnez le type "Nombre entier" car nous cherchons à dénombrer des entités&nbsp;;
+* **Longueur  du nouveau champ**&nbsp;: laissez la valeur par défaut (vous pouvez la réduire si vous voulez optimiser l'espace disque occupé par votre couche et si vous avez une idée de la quantité maximum d'entités que l'on peut trouver par maille du carroyage)&nbsp;;
+* **Expression**&nbsp;: saisissez l'expression suivante (:warning: en prenant soin de remplacer 'identifant_de_couche' par l'identifiant de la couche dont vous souhaitez comptabiliser les entités par maille)&nbsp;:
+
+``` {.txt}
+array_length(
+  overlay_intersects(
+    layer:='identifant_de_couche',
+    expression:=1
+  )
+)
+```
+
+:bulb: Pour insérer le bon identifiant de couche dans cette expression, utilisez la partie centrale de l'éditeur d'expression. La rubrique "Couches" propose l'ensemble des couches présentes dans le projet QGIS. En double-cliquant sur le nom de la couche dans cette liste, l'éditeur d'expression insérera son identifiant dans l'expression.
+![filtres-requetes-28.png](assets/filtres-requetes-28.png)
+
+:bulb: Avant de valider la création du champ calculé, vérifiez que l'expression donne des résultats plausibles en utilisant la fonction de prévisualisation du résultat dans la partie située tout en bas à gauche de l'éditeur d'expression (vous pouvez passer d'une maille à une autre du carroyage en utilisant les flèches pointant vers la gauche et la droite)&nbsp;:
+![filtres-requetes-29.png](assets/filtres-requetes-29.png)
+
+Une fois que vous validez l'expression, QGIS crée le champ calculé et calcule la valeur de ce champ pour l'ensemble des entités de la couche.
+
+## Champ virtuel ou non ?
+
+Pour savoir s'il vaut mieux créer un champ virtuel ou non pour le champ calculé&nbsp;: [Champs calculés](/qgis/qgis-expressions/expressions-01-champs-calcules).

@@ -1,23 +1,90 @@
 ---
 title: "Bash"
+subtitle: "Lignes de commande utiles"
 ---
 
-## Gestion des droits
+# Gestion des droits
 
-### Modification en masse des droits sur des répertoires et des fichiers
+Modification en masse des droits sur des répertoires et des fichiers&nbsp;:<br>
+``` {.sh}
+find . -type d -exec chmod 0775 {} \;
+```
 
-`find . -type d -exec chmod 0775 {} \;`
+``` {.sh}
+find . -type f -exec chmod 0664 {} \;
+```
 
-`find . -type f -exec chmod 0664 {} \;`
+# Zip
+Créer un zip sans les .DS_Store&nbsp;:
+``` {.sh}
+zip -r foo.zip foo -x "*.DS_Store"
+```
 
-## Espace disque
+# Liens symboliques
+Créer un lien symbolique&nbsp;:
+``` {.sh}
+ln  -s  nom_du_dossier_source  nom_du_lien
+``` 
 
-### Espace disque disponible humainement lisible
+# Supprimer des fichiers anciens
 
-`df -h`
+``` {.sh}
+find /my_dir/*.log -mtime +31 -type f -delete
+```
 
-## Exécution de scripts
+# Arborescences de fichiers
 
-### Lancer un script et enregistrer la sortie standard dans un fichier de log :
+## Copie d’une arborescence
 
-`bash 68-RVB-2021-cutline.sh | tee ../log/68-RVB-2021-cutline.txt`
+``` {.sh}
+cp -R source dest
+```
+
+## Afficher l’arborescence d’un répertoire
+
+``` {.sh}
+tree .
+```
+
+# Espace disque
+Espace disque disponible humainement lisible&nbsp;:<br>
+``` {.sh}
+df -h
+```
+
+Espace disque occupé par les répertoires&nbsp;:<br>
+``` {.sh}
+du -h -d 2 .
+```
+
+# Mémoire
+Mémoire utilisée et disponible&nbsp;:<br>
+``` {.sh}
+free -m
+```
+
+Informations matérielle sur la mémoire&nbsp;:<br>
+[dmidecode](https://www.cyberciti.biz/faq/linux-ram-info-command/)
+
+
+# Exécution de scripts
+Lancer un script et enregistrer la sortie standard dans un fichier de log&nbsp;:<br>
+``` {.sql}
+bash 68-RVB-2021-cutline.sh | tee ../log/68-RVB-2021-cutline.txt
+```
+
+Usage de Screen&nbsp;:
+
+* https://doc.ubuntu-fr.org/screen
+* https://www.digitalocean.com/community/tutorials/how-to-install-and-use-screen-on-an-ubuntu-cloud-server
+
+# Système d'exploitation
+Afficher les caratéristiques du système&nbsp;:<br>
+``` {.sql}
+uname -a
+```
+
+Redémarrer le système (sans message d'avertissement aux utilisateurs)&nbsp;:<br>
+``` {.sql}
+sudo systemctl --no-wall reboot
+```

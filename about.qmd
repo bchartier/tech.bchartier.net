@@ -1,5 +1,6 @@
 ---
 title: "À propos"
+order: 4
 ---
 
 La documentation technique de bchartier.net a été créée à l'aide de Quarto.

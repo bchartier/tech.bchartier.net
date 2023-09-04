@@ -1,9 +1,11 @@
 ---
 title: "Outils"
 subtitle: "Notes sur des outils divers"
+order: 2
 ---
 
 1. [Bash](bash.qmd)
 1. [Git](git.qmd)
+1. [Docker](docker.qmd)
 1. [Serveur HTTP](serveur-http.qmd)
 1. [GeoNetwork](geonetwork.qmd)
